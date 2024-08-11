@@ -16,6 +16,7 @@ public class Test implements Listener {
     public Test() {
         this.manager = new Manager();
         this.manager.getCommandManager().registerCommand(new TestCommand());
+        this.manager.registerListener(this);
         new Thread(this.manager.getConsoleHandler()).start();
     }
 
