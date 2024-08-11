@@ -7,7 +7,7 @@ public abstract class Event {
      * <p><b>Should be implemented in each event class!</b></p>
      * @return
      */
-    public static HandlerContainer getHandlerContainer() {
+    public HandlerContainer getHandlerContainer() {
         return null;
     }
 
