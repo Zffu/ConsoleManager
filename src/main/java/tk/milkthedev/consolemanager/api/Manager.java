@@ -16,7 +16,7 @@ public class Manager {
 
     public Manager() {
         this.commandManager = new CommandManager(this);
-        this.consoleHandler = new ConsoleHandler();
+        this.consoleHandler = new ConsoleHandler(this);
         this.eventManager = new EventManager();
         this.listeners = new ArrayList<>();
     }
