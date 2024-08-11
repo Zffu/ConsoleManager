@@ -2,21 +2,19 @@ package tk.milkthedev.consolemanager.event;
 
 import tk.milkthedev.consolemanager.event.listener.Listener;
 
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
-import java.util.Comparator;
 
 public class EventManager {
     private final ArrayList<Event> events;
     private final ArrayList<Listener> listeners;
     private final ArrayList<EventHandler> handlers;
-    private final ArrayList<Method> methods;
+    private final ArrayList<Method> handlerMethods;
     public EventManager() {
         this.events = new ArrayList<>();
         this.listeners = new ArrayList<>();
         this.handlers = new ArrayList<>();
-        this.methods = new ArrayList<>();
+        this.handlerMethods = new ArrayList<>();
     }
 
     public void registerEvent(Event event) {
@@ -28,12 +26,12 @@ public class EventManager {
     }
 
     public void registerListener(Listener listener) {
-        listeners.add(listener);
         for(Method method : listener.getClass().getMethods()) {
             EventHandler handler = method.getAnnotation(EventHandler.class);
             if(handler != null) {
                 handlers.add(handler);
-                methods.add(method);
+                handlerMethods.add(method);
+                listeners.add(listener);
             }
         }
     }
@@ -54,11 +52,10 @@ public class EventManager {
         });
 
         // TODO: Sort on the basis of priority
-        for (Method method : methods) {
+        for (Method method : handlerMethods) {
             try {
-                method.invoke(handlers1, handlers);
-            } catch (Exception e) {
-                throw new RuntimeException(e);
+                method.invoke(listeners.get(handlerMethods.indexOf(method)), event);
+            } catch (Exception ignored) { // TODO: to only invoke methods which have the same event as argument
             }
         }
     }
