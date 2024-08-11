@@ -3,7 +3,9 @@ package tk.milkthedev.consolemanager.event.impl;
 import tk.milkthedev.consolemanager.event.Cancellable;
 import tk.milkthedev.consolemanager.event.Event;
 import tk.milkthedev.consolemanager.event.EventType;
+import tk.milkthedev.consolemanager.event.RegisteredEvent;
 
+@RegisteredEvent(type = EventType.CONSOLE_INPUT)
 public class ConsoleInputEvent extends Event implements Cancellable {
     private boolean cancel = false;
     private String input;
