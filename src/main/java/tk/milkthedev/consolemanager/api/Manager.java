@@ -15,7 +15,7 @@ public class Manager {
     private final ArrayList<Listener> listeners;
 
     public Manager() {
-        this.commandManager = new CommandManager();
+        this.commandManager = new CommandManager(this);
         this.consoleHandler = new ConsoleHandler();
         this.eventManager = new EventManager();
         this.listeners = new ArrayList<>();
