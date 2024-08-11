@@ -12,20 +12,17 @@ public class Manager {
     private final CommandManager commandManager;
     private final ConsoleHandler consoleHandler;
     private final EventManager eventManager;
-    private final ArrayList<Listener> listeners;
 
     public Manager() {
         this.commandManager = new CommandManager(this);
         this.consoleHandler = new ConsoleHandler(this);
         this.eventManager = new EventManager();
-        this.listeners = new ArrayList<>();
     }
 
-    public Manager(CommandManager commandManager, ConsoleHandler consoleHandler, EventManager eventManager, ArrayList<Listener> listeners) {
+    public Manager(CommandManager commandManager, ConsoleHandler consoleHandler, EventManager eventManager) {
         this.commandManager = commandManager;
         this.consoleHandler = consoleHandler;
         this.eventManager = eventManager;
-        this.listeners = listeners;
     }
 
     public CommandManager getCommandManager() {
@@ -38,17 +35,5 @@ public class Manager {
 
     public EventManager getEventManager() {
         return this.eventManager;
-    }
-
-    public void registerListener(Listener listener) {
-        this.listeners.add(listener);
-    }
-
-    public void unregisterListener(Listener listener) {
-        this.listeners.remove(listener);
-    }
-
-    public List<Listener> getListeners() {
-        return this.listeners;
     }
 }
