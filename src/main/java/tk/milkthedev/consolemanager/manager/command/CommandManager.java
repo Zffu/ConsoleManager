@@ -1,16 +1,20 @@
 package tk.milkthedev.consolemanager.manager.command;
 
 import tk.milkthedev.consolemanager.api.Manager;
+import tk.milkthedev.consolemanager.event.impl.ConsoleInputEvent;
 
+import java.io.Console;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 
 public class CommandManager {
     private final ArrayList<Command> commands;
+    private final Manager manager;
 
-    public CommandManager() {
+    public CommandManager(Manager manager) {
         this.commands = new ArrayList<>();
+        this.manager = manager;
     }
 
     public void registerCommand(Command command) {
@@ -28,7 +32,11 @@ public class CommandManager {
 
         if (command == null) return false;
 
-        // TODO: Fire CommandPreprocessEvent
+        ConsoleInputEvent event = new ConsoleInputEvent(input);
+        manager.getEventManager().fireEvent(event);
+
+        if (event.isCancel()) return true;
+
         command.execute(Arrays.copyOfRange(parts, 1, parts.length));
         return true;
     }
