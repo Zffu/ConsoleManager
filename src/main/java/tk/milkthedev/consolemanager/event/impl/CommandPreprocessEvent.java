@@ -2,21 +2,21 @@ package tk.milkthedev.consolemanager.event.impl;
 
 import tk.milkthedev.consolemanager.event.Cancellable;
 import tk.milkthedev.consolemanager.event.Event;
+import tk.milkthedev.consolemanager.event.EventType;
 
 public class CommandPreprocessEvent extends Event implements Cancellable {
     private boolean cancel = false;
     private final String command;
 
     public CommandPreprocessEvent( String command) {
+        super(EventType.COMMAND_PREPROCESS);
         this.command = command;
     }
 
-    @Override
     public boolean isCancel() {
         return cancel;
     }
 
-    @Override
     public void setCancel(boolean cancel) {
         this.cancel = cancel;
     }
