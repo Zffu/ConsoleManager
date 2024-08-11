@@ -2,6 +2,7 @@ package tk.milkthedev.consolemanager.event;
 
 import tk.milkthedev.consolemanager.event.listener.Listener;
 
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
@@ -33,6 +34,21 @@ public class EventManager {
                         this.handlerMap[id].add(method);
                     }
                 }
+            }
+        }
+    }
+
+    /**
+     * <p>Propagates an {@link Event} trough the event manager.</p>
+     * @param e
+     */
+    public void propagateEvent(Event e) {
+        int id = e.getClass().getAnnotation(RegisteredEvent.class).type().ordinal();
+        for(Method method : this.handlerMap[id]) {
+            try {
+                method.invoke(null, e);
+            } catch (Exception ex) {
+                ex.printStackTrace();
             }
         }
     }
