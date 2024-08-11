@@ -9,7 +9,6 @@ public class ConsoleInputEvent extends Event implements Cancellable {
     private String input;
 
     public ConsoleInputEvent(String input) {
-        super(EventType.CONSOLE_INPUT);
         this.input = input;
     }
 

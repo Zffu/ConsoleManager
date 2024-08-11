@@ -9,7 +9,6 @@ public class CommandPreprocessEvent extends Event implements Cancellable {
     private final String command;
 
     public CommandPreprocessEvent( String command) {
-        super(EventType.COMMAND_PREPROCESS);
         this.command = command;
     }
 
